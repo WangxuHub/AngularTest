@@ -16,56 +16,12 @@
 
 <script>
     $(function () {
-        
-        BindRightNav();
-        BindRightScorllNav();
-
-        CreateScroll();
-    });
-
-    function BindRightNav() {
-
-        $("#right-nav li").click(function () {
-            $(this).addClass("active").siblings("li").removeClass("active");
-            $(this).find("ul").slideDown();
-            $(this).siblings("li").find("ul").slideUp();
-        });
-    }
-
-    function BindRightScorllNav()
-    {
-        $('body').on('activate.bs.scrollspy', function (obj) {
-            if ($(obj.target).is(":hidden")) {
-                $(obj.target).closest("ul").slideDown()
-                $(obj.target).parent().parent("li").siblings("li").find("ul").slideUp();
-            }
-        })
-
-    }
-
-    function CreateScroll() {
-       
-
         $("#ContentDiv").myJquery();
-    }
-
-
+    });
 
 </script>
 </head>
 <body >
-    
-    <!--data-target="#right-nav">-->
-    <!--<div id="navbar-top" class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <ul class="nav nav-tabs" role="tablist">
-
-                <li role="presentation" class="active"><a href="#t1">Home</a></li>
-                <li role="presentation"><a href="#t2">Profile</a></li>
-                <li role="presentation"><a href="#t3">Messages</a></li>
-            </ul>
-        </div>
-    </div>-->
 
     <div class="container">
         <div class="col-lg-9" id="ContentDiv">
@@ -186,6 +142,46 @@
             <h3>132</h3>
             <h3>132</h3>
             <h3>132</h3>
+            <h1 id="t4" class="text-danger  bg-info">t4</h1>
+            <h3>t3</h3>
+            <h2 id="t4_1">t4_1</h2>
+            <h3>t3_1</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h2 id="t4_2">t4_2</h2>
+            <h3>t3_2</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h2 id="t4_3">t4_3</h2>
+            <h3>t3_3</h3>
+            <h3>132</h3>-
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
+            <h3>132</h3>
         </div>
         <div class="col-lg-3">
             <div id="right-nav">
@@ -196,84 +192,3 @@
 
 </body>
 </html>
-///<reference path="index.html" />
-
-(function ($) {
-    if(!$) console.error("需要jquery")
-    $.fn.myJquery = function (options) {
-        var opts = $.extend({}, $.fn.myJquery.defaults, options);
-
-        var navJq = $(opts.navObj);
-
-        //需要进行 滚动绑定的元素
-        var titleListJq = $(opts.scrollBody).find(opts.title1 + "," + opts.title2);
-
-        var ulJq = $("<ul class='nav'></ul>");
-
-        var curSubNavUl = undefined;//当前 二级导航栏的ul
-        $.each(titleListJq, function (index, item) {
-            item = $(item);
-            if(item.is(opts.title1))
-            {
-                var aJq = $("<a href='#"+item.attr("id")+"'>" + item.text() + "</a>");
-                aJq.click(function () {
-                    var offsetTop = item.offset().top;
-                    $(opts.scrollBody).animate({ scrollTop: offsetTop - 20 }, 500);
-                    //return false;
-                });
-                ulJq.append($("<li></li>").append(aJq));
-
-                curSubNavUl = undefined;
-            }
-            else if(item.is(opts.title2))
-            {
-                if(curSubNavUl===undefined)
-                {
-                    curSubNavUl = $("<ul class='nav subNav'></ul>");
-                    ulJq.find("li:last").append(curSubNavUl);
-                }
-                var subAJq = $("<a href='#" + item.attr("id") + "'>" + item.text() + "</a>");
-                subAJq.click(function () {
-                    var offsetTop = item.offset().top;
-                    $(opts.scrollBody).animate({ scrollTop: offsetTop - 20 }, 500);
-                });
-                curSubNavUl.append($("<li></li>").append(subAJq));
-            }
-
-        });
-        navJq.append(ulJq);
-
-        //绑定 导航点击时，出现子导航
-        $(opts.navObj).find("li").click(function () {
-            $(this).addClass("active").siblings("li").removeClass("active");
-            $(this).find("ul").slideDown();
-            $(this).siblings("li").find("ul").slideUp();
-        });
-
-
-        $(opts.scrollBody).scrollspy({ target: opts.navObj,offset:20 });
-
-
-        //bootstrap 滚动事件触发
-        $(opts.scrollBody).on('activate.bs.scrollspy', function (obj) {
-            if ($(obj.target).is(":hidden")) {
-                $(obj.target).closest("ul").slideDown()
-                $(obj.target).parent().parent("li").siblings("li").find("ul").slideUp();
-            }
-        });
-
-        $("head").append($.fn.myJquery.css);
-    }
-
-    $.fn.myJquery.defaults = { scrollBody: 'body', navObj: '#right-nav', title1: "h1", title2: "h2" };
-
-    $.fn.myJquery.css=" \
-<style type='text/css'>
-    \r\n\ body { position: relative; }
-    \r\n\ #right-nav { position: fixed; }
-    \r\n\ #right-nav li.active > a { border-left: 2px solid #22DDDD; font-weight: bold; color: #1A1AE6; }
-    \r\n\ ul.subNav { margin-left: 20px; display: none; }
-    \r\n\ ul.subNav li a { padding: 2px 5px; }
-    \r\n\
-</style>"
-})(jQuery);

@@ -4,22 +4,6 @@
     if (!$) console.error("需要jquery");
 
 
-    $.fn.myJquery = function () { };
-    $.fn.myJquery.defaults = {
-        scrollBody: 'body',//导航条 捕捉范围
-        navObj: '#right-nav',//导航条生成位置
-        title1: "h1",//一级导航条
-        title2: "h2"//二级导航条
-    };
-
-    $.fn.myJquery.css = " \
-                <style type='text/css'>\r\n\
-                body { position: relative;}\r\n\
-                #right-nav { position: fixed; }\r\n\
-                #right-nav li.active>a {border-left:2px solid #22DDDD;font-weight: bold;color: #1A1AE6;}\r\n\
-                ul.subNav { margin-left: 20px; display: none; }\r\n\
-                ul.subNav li a {padding: 2px 5px;}\r\n\
-                </style>";
 
 
     $.fn.myJquery = function (options) {
@@ -27,12 +11,14 @@
        
         var navJq = $(opts.navObj);
 
+        var canScrollNav = true;//滚动是否可以绑定导航条
         //需要进行 滚动绑定的元素
         var titleListJq = $(opts.scrollBody).find(opts.title1 + "," + opts.title2);
 
         var ulJq = $("<ul class='nav'></ul>");
         
         var curSubNavUl = undefined;//当前 二级导航栏的ul
+
         $.each(titleListJq, function (index, item) {
             item = $(item);
             if(item.is(opts.title1))
@@ -40,8 +26,9 @@
                 var aJq = $("<a href='#"+item.attr("id")+"'>" + item.text() + "</a>");
                 aJq.click(function () {
                     var offsetTop = item.offset().top;
-                    $(opts.scrollBody).animate({ scrollTop: offsetTop - 20 }, 500);
-                    //return false;
+                    canScrollNav = false;
+                    $(opts.scrollBody).animate({ scrollTop: offsetTop - 20 }, 500, undefined, function () { canScrollNav = true;});
+                    return false;
                 });
                 ulJq.append($("<li></li>").append(aJq));
 
@@ -58,18 +45,25 @@
                 subAJq.click(function () {
                     var offsetTop = item.offset().top;
                     $(opts.scrollBody).animate({ scrollTop: offsetTop - 20 }, 500);
+                    return false;
                 });
                 curSubNavUl.append($("<li></li>").append(subAJq));
             }
 
         });
+
+        var retTop = $("<li><a href='javascript:void(0)'>回到顶部</a></li>");
+        retTop.click(function () {
+            $(opts.scrollBody).animate({ scrollTop: 0}, 500, undefined, function () { canScrollNav = true; });
+        });
         navJq.append(ulJq);
         
         //绑定 导航点击时，出现子导航
         $(opts.navObj).find("li").click(function () {
-            $(this).addClass("active").siblings("li").removeClass("active");
-            $(this).find("ul").slideDown();
-            $(this).siblings("li").find("ul").slideUp();
+            // $(this).addClass("active").siblings("li").removeClass("active");
+            //$(this).children("a").removeClass("active");
+            //$(this).find("ul").slideDown();
+            //$(this).siblings("li").find("ul").slideUp();
         });
 
 
@@ -78,13 +72,43 @@
         
         //bootstrap 滚动事件触发
         $(opts.scrollBody).on('activate.bs.scrollspy', function (obj) {
+            //if (!canScrollNav)
+            //    return;
+
+            $(obj.target).addClass("active").siblings("li").removeClass("active");
+
+
             if ($(obj.target).is(":hidden")) {
                 $(obj.target).closest("ul").slideDown()
                 $(obj.target).parent().parent("li").siblings("li").find("ul").slideUp();
             }
+            else if($(obj.target).children("ul").length>0)
+            {
+                $(obj.target).find("ul").slideDown()
+                $(obj.target).siblings("li").find("ul").slideUp();
+            }
         });
+
+
+      
 
         $("head").append($.fn.myJquery.css);
     }
+
+    $.fn.myJquery.defaults = {
+        scrollBody: 'body',//导航条 捕捉范围
+        navObj: '#right-nav',//导航条生成位置
+        title1: "h1",//一级导航条
+        title2: "h2"//二级导航条
+    };
+
+    $.fn.myJquery.css = " \
+                <style type='text/css'>\r\n\
+                body { position: relative;}\r\n\
+                #right-nav { position: fixed; }\r\n\
+                #right-nav li.active>a {border-left:2px solid #22DDDD;font-weight: bold;color: #1A1AE6;}\r\n\
+                ul.subNav { margin-left: 20px; display: none; }\r\n\
+                ul.subNav li a {padding: 2px 5px;}\r\n\
+                </style>";
 
 })(jQuery);
