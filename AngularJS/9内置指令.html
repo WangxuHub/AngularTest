@@ -11,54 +11,32 @@
 
     <link href="resource/js/bootstrap-3.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="resource/js/bootstrap-3.3.5/dist/js/bootstrap.min.js" defer></script>
+
+    <script src="resource/js/common/myscrollnav.js"></script>
+    <script>
+
+        $(function () {
+            $("#ContentDiv").myJquery({
+                title1: "h2",//一级导航条
+                title2: "h3"//二级导航条
+            });
+
+        })
+    </script>
 </head>
-<body ng-app="myApp" class="container">
+<body >
 
-    <h3>9.1.2类布尔属性</h3>
-    <h4>1.ng-href</h4>
-    <a ng-href="{{myHref}}" target="_blank">I'm feeling lucky,when I load</a>
-    <a href="{{myHref}}" target="_blank">I'm feeling 404;</a>
+    <div class="container" id="ContentDiv">
+        <div class="col-lg-9">
+            <h2 id="123">9.2 在指令中使用子作用域</h2>
+                
+            <h1 id="234">234</h1>
+            <h1 id="345">345</h1>
 
-    <h4>2.ng-src</h4>
-    <p>Wrong Way</p>
-    <img src="{{imgSrc}}"/>
-
-    <p>Right Way</p>
-    <img ng-src="{{imgSrc}}"/>
-
-    <h4>ng-selected</h4>
-   
-    <label>Select Two Fish:</label>
-    <input type="checkbox" ng-model="isTwoFish"/><br />
-
-    <select>
-        <option>One Fish</option>
-        <option ng-selected="isTwoFish">Two Fish</option>
-    </select>
-
-
-
-
-
-
-
-    <label>value1={{value1}}</label>
-    <input type="checkbox" ng-checked="value1" ng-init="value1=true" ng-model="value1" />
-
-
-
-    <code class="help-block text-danger">========================================================================================================</code>
-
-    Type here to make sibling readonly:
-    <input type="text" ng-model="readModel"/><br />
-    <input type="text" ng-readonly="readModel" value="Some text here!"/>
-
-
-
-    <textarea ng-disabled="isDisabled" class="form-control"> Wait5Seconds</textarea>
-
-
-    <input type="text" ng-model="name" />
-    <button ng-model="button" ng-disabled="!name" class="btn btn-primary">submit</button>
+        </div>
+        <div class="col-lg-3">
+            <div id="right-nav"></div>
+        </div>
+    </div>
 </body>
 </html>

@@ -27,7 +27,11 @@
                 aJq.click(function () {
                     var offsetTop = item.offset().top;
                     canScrollNav = false;
-                    $(opts.scrollBody).animate({ scrollTop: offsetTop - 20 }, 500, undefined, function () { canScrollNav = true;});
+                    $(opts.scrollBody).animate({ scrollTop: offsetTop - 20 }, 500, undefined,
+                        function () {
+                            canScrollNav = true;
+                            aJq.parent("li").addClass("active").siblings("li").removeClass("active");
+                        });
                     return false;
                 });
                 ulJq.append($("<li></li>").append(aJq));
@@ -44,7 +48,11 @@
                 var subAJq = $("<a href='#" + item.attr("id") + "'>" + item.text() + "</a>");
                 subAJq.click(function () {
                     var offsetTop = item.offset().top;
-                    $(opts.scrollBody).animate({ scrollTop: offsetTop - 20 }, 500);
+                    $(opts.scrollBody).animate({ scrollTop: offsetTop - 20 }, 500, undefined,
+                        function () {
+                            subAJq.parent("li").addClass("active").siblings("li").removeClass("active");
+                            subAJq.closest("ul").parent("li").addClass("active").siblings("li").removeClass("active");
+                        });
                     return false;
                 });
                 curSubNavUl.append($("<li></li>").append(subAJq));
@@ -61,6 +69,7 @@
         
         //绑定 导航点击时，出现子导航
         $(opts.navObj).find("li").click(function () {
+
             // $(this).addClass("active").siblings("li").removeClass("active");
             //$(this).children("a").removeClass("active");
             //$(this).find("ul").slideDown();
@@ -91,9 +100,11 @@
         });
 
 
-      
+        var defaultCss = $.fn.myJquery.css;
+        var newCss = defaultCss.replace(/@scrollBody/g, opts.scrollBody).replace(/@navObj/g, opts.navObj);
+            
 
-        $("head").append($.fn.myJquery.css);
+        $("head").append(newCss);
     }
 
     $.fn.myJquery.defaults = {
@@ -105,9 +116,9 @@
 
     $.fn.myJquery.css = " \
                 <style type='text/css'>\r\n\
-                body { position: relative;}\r\n\
-                #right-nav { position: fixed; }\r\n\
-                #right-nav li.active>a {border-left:2px solid #22DDDD;font-weight: bold;color: #1A1AE6;}\r\n\
+                @scrollBody { position: relative;}\r\n\
+                @navObj { position: fixed; }\r\n\
+                @navObj li.active>a {border-left:2px solid #22DDDD;font-weight: bold;color: #1A1AE6;}\r\n\
                 ul.subNav { margin-left: 20px; display: none; }\r\n\
                 ul.subNav li a {padding: 2px 5px;}\r\n\
                 </style>";
