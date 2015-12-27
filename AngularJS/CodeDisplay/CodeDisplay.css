@@ -1,0 +1,41 @@
+﻿.my-test-show {
+}
+
+.my-test-show .my-content {
+    border: 1px solid #ccc;
+    border-bottom: none;
+    border-radius: 4px 4px 0px 0px;
+    padding: 9.5px;
+}
+
+.my-test-show pre {
+    border-radius: 0px 0px 4px 4px;
+}
+
+.my-code .tooltip{
+    white-space:nowrap;
+}
+
+.my-clipboard {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    border-bottom: 1px solid #e1e1e8;
+    border-left:1px solid #e1e1e8;
+    border-top:1px solid #ccc;
+    border-right:1px solid #ccc;
+
+    border-radius: 0 0 0 4px;
+    padding: 5px 8px;
+    font-size: 12px;
+    color: #767676;
+    cursor: pointer;
+    background-color: #fff;
+    z-index: 10;
+}
+
+.my-clipboard:hover {
+    color:#ffffff;
+    background-color:#563d7c;
+    border-color:#563d7c;
+}

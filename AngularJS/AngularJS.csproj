@@ -38,28 +38,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.EnterpriseServices" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="8.1指令.html" />
     <Content Include="8.1 directive.js" />
     <Content Include="9内置指令.html" />
+    <Content Include="CodeDisplay\CodeDisplay.css" />
+    <Content Include="CodeDisplay\CodeDisplay.js" />
     <Content Include="Index.js" />
     <Content Include="Resource\image\favicon.ico" />
     <Content Include="formError.html" />
@@ -67,6 +50,20 @@
     <Content Include="FormRequired.js" />
     <Content Include="Index.html" />
     <Content Include="Resource\image\bf529adfa5fa6da39c8e7b779ec658d8.png" />
+    <Content Include="Resource\js\bootstrap-3.3.5\dist\css\bootstrap-theme.css" />
+    <Content Include="Resource\js\bootstrap-3.3.5\dist\css\bootstrap-theme.css.map" />
+    <Content Include="Resource\js\bootstrap-3.3.5\dist\css\bootstrap-theme.min.css" />
+    <Content Include="Resource\js\bootstrap-3.3.5\dist\css\bootstrap.css" />
+    <Content Include="Resource\js\bootstrap-3.3.5\dist\css\bootstrap.css.map" />
+    <Content Include="Resource\js\bootstrap-3.3.5\dist\css\bootstrap.min.css" />
+    <Content Include="Resource\js\bootstrap-3.3.5\dist\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Resource\js\bootstrap-3.3.5\dist\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Resource\js\bootstrap-3.3.5\dist\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Resource\js\bootstrap-3.3.5\dist\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Resource\js\bootstrap-3.3.5\dist\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Resource\js\bootstrap-3.3.5\dist\js\bootstrap.js" />
+    <Content Include="Resource\js\bootstrap-3.3.5\dist\js\bootstrap.min.js" />
+    <Content Include="Resource\js\bootstrap-3.3.5\dist\js\npm.js" />
     <Content Include="Resource\js\Common\myScrollNav.js" />
     <Content Include="Resource\js\jquery-2.1.1.min.js" />
     <Content Include="9内置指令.js" />
@@ -77,6 +74,9 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\123.pubxml" />
     <None Include="Properties\PublishProfiles\本地.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resource\css\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

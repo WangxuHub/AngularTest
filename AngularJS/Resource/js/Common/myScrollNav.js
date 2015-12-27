@@ -21,7 +21,7 @@
 
         $.each(titleListJq, function (index, item) {
             item = $(item);
-            if(item.is(opts.title1))
+            if(item.is(opts.title1))//一级导航条
             {
                 var aJq = $("<a href='#"+item.attr("id")+"'>" + item.text() + "</a>");
                 aJq.click(function () {
@@ -31,6 +31,7 @@
                         function () {
                             canScrollNav = true;
                             aJq.parent("li").addClass("active").siblings("li").removeClass("active");
+                            aJq.siblings("ul").show();
                         });
                     return false;
                 });
