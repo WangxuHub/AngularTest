@@ -63,8 +63,515 @@
 </script>
 </div>
 </div>
-            <h1 id="234">234</h1>
-            <h1 id="345">345</h1>
+
+            <h3 id="9_2_2">2.ng-controller</h3>
+            <div class="my-test-show">
+<div class="my-content"><div ng-app="9_2_2_app">
+<div ng-controller="SomeController">
+    <strong> someModel.someProperty:</strong>{{someModel.someProperty}} <br/>
+    <strong>someBareValue:</strong> {{someBareValue}}
+    <button ng-click="someAction()" class="btn btn-primary">Communicate to child</button>
+    <div ng-controller="ChildController">   
+        <strong> someModel.someProperty:</strong>{{someModel.someProperty}} <br />
+        <strong>someBareValue:</strong> {{someBareValue}}
+        <button ng-click="childAction()" class="btn btn-primary">Communicate to parent</button>
+    </div>
+    <p class="bg-danger">$scope.someModel.someProperty和$scope.someBareValue，分别是$scope上数据模型的数据和$scope上的属性，前者子类会继承父类的属性（如果子类中没有这个属性），后者是子类和父类共享的属性（不推荐使用）</p>
+</div> 
+</div>     
+<script>
+    
+    angular.module('9_2_2_app', [])
+    .controller('SomeController', function ($scope) {
+        //创建模型
+        $scope.someModel = {
+            someProperty: 'hello computer'
+        };
+
+        //反模式，裸值
+        $scope.someBareValue = 'hello computer';
+
+        $scope.someAction = function () {
+            $scope.someModel.someProperty = 'hello human,from parent';
+            //在SomeController和ChildController中设置{{someBareValue}}
+            $scope.someBareValue = 'hello human, from parent!';
+        };
+    })
+    .controller('ChildController', function ($scope) {
+        $scope.childAction = function () {
+            $scope.someModel.someProperty = 'hello human,from child';
+            //在ChildController中设置了{{someBareValue}}
+            $scope.someBareValue = 'hello human,from child!';
+        };
+    });
+
+    $(function () { //这里在加载完在执行的目的，只是为了在页面上显示出html的源码而已，下同
+    //手动加载，当一个页面都多个ng-app时
+        angular.bootstrap($("[ng-app='9_2_2_app']")[0], ['9_2_2_app']);
+    });
+</script>
+</div>
+</div>
+
+            <h3 id="9_2_3">3.ng-include</h3>
+            <div class="my-test-show">
+<div class="my-content"><div ng-app="9_2_3_app">
+    <div  ng-controller="MyController" ng-init="name='word'" ng-include="myTemplateName.html">
+        Hello {{name}}
+    </div>
+</div>
+<script>
+    angular.module('9_2_3_app', [])
+    .controller('MyController', function ($scope) { });
+
+    $(function () { 
+    //手动加载，当一个页面都多个ng-app时
+        angular.bootstrap($("[ng-app='9_2_3_app']")[0], ['9_2_3_app']);
+    })
+
+</script>
+
+</div>
+            </div>
+
+           <h3 id="9_2_4">4.ng-switch</h3>
+            <div class="my-test-show">
+<div class="my-content"><div ng-app="9_2_4_app">
+    <input type="text" ng-model="person.name" class="form-control"/>
+    <div ng-switch on="person.name">
+        <p ng-switch-default>And the winner is </p>
+        <strong ng-switch-when="Ari">{{person.name}}</strong>
+    </div>
+</div>
+<script>
+    angular.module('9_2_4_app', []);
+
+    $(function () {
+        //手动加载，当一个页面都多个ng-app时
+        angular.bootstrap($("[ng-app='9_2_4_app']")[0], ['9_2_4_app']);
+    })
+</script>
+</div>
+            </div>
+
+            <h3 id="9_2_5">5.ng-view</h3>
+            <div class="my-test-show">
+                <div class="my-content">
+                    ng-view指令用来设置将路由管理和放置在HTML中的视图的位置。
+                </div>
+            </div>
+
+
+
+
+
+            <h3 id="9_2_6">6.ng-if</h3>
+            <div class="my-test-show">
+<div class="my-content"><div ng-app="9_2_6_app">
+    <div ng-if="2+2===5">
+        Won't see this DOM node,not even in the source code.
+    </div>
+    <div ng-if="2+2===4">
+        Hi,I do exist.
+    </div>
+</div>
+<script>
+    angular.module('9_2_6_app', []);
+
+    $(function () {
+        //手动加载，当一个页面都多个ng-app时
+        angular.bootstrap($("[ng-app='9_2_6_app']")[0], ['9_2_6_app']);
+    })
+
+</script>
+</div>
+            </div>
+
+
+            <h3 id="9_2_7">7.ng-repeat</h3>
+<div class="my-test-show">
+<div class="my-content"><div ng-app="9_2_7_app">
+    <ul ng-controller="PeopleController">
+        <li ng-repeat="person in people" ng-class="{even:!$even,odd:!$odd}">
+            {{person.name}} lives in {{person.city}}
+        </li>
+    </ul>
+</div>
+<style type="text/css">
+    .odd {
+        background-color:#2B91D5;
+    }
+    .even {
+        background-color:#CC5233;
+    }
+</style>
+<script>
+    angular.module('9_2_7_app', [])
+    .controller('PeopleController', function ($scope) {
+        $scope.people = [
+        { name: "Ari", city: "San Francisco" },
+        { name: "Erik", city: "Seattle" },
+        { name: "Wangxuhub", city: "Hangzhou" }];
+    });
+    $(function () {
+        //手动加载，当一个页面都多个ng-app时
+        angular.bootstrap($("[ng-app='9_2_7_app']")[0], ['9_2_7_app']);
+    })
+</script>
+</div>
+</div>
+
+            <h3 id="9_2_8">8.ng-init</h3>
+<div class="my-test-show">
+<div class="my-content"><div ng-app="9_2_8_app">
+    <div ng-init="greeting='Hello';person='World'">
+        {{greeting}} {{person}}
+    </div>
+</div>
+<script>
+    angular.module('9_2_8_app',[]);
+    $(function () {
+        //手动加载，当一个页面都多个ng-app时
+        angular.bootstrap($("[ng-app='9_2_8_app']")[0], ['9_2_8_app']);
+    })
+</script>
+</div>
+</div>
+
+
+            <h3 id="9_2_9">9.{{}}</h3>
+
+            <h3 id="9_2_10">10.ng-bind</h3>
+<div class="my-test-show">
+<div class="my-content"><div ng-app="9_2_10_app">
+    <p>用来避免加载前就显示，导致的闪烁</p>
+    <div ng-init="greeting='HelloWorld'">
+        <p>{{greeting}}</p>
+        <p ng-bind="greeting"></p>
+    </div>
+</div>
+<script>
+    angular.module('9_2_10_app', []);
+    $(function () {
+        //手动加载，当一个页面都多个ng-app时
+        angular.bootstrap($("[ng-app='9_2_10_app']")[0], ['9_2_10_app']);
+    })
+</script>
+</div>
+</div>
+
+
+            <h3 id="9_2_11">11.ng-cloak</h3>
+            <h3 id="9_2_12">12.ng-bind-template</h3>
+<div class="my-test-show">
+<div class="my-content"><div ng-app="9_2_11_app">
+    <label>{{</label><label>}}</label>
+    <p>{{greeting}} {{person}}</p>
+
+    <label>ng-cloak</label>
+    <div ng-init="greeting='Hello';person='World'">
+        <p ng-cloak>{{greeting}} {{person}}</p>
+    </div>
+
+    <label>ng-bind-template</label>
+    <div ng-bind-template="{{greeting}} {{person}}"></div>
+</div>
+<script>
+    angular.module('9_2_11_app', []);
+    $(function () {
+        //手动加载，当一个页面都多个ng-app时
+        angular.bootstrap($("[ng-app='9_2_11_app']")[0], ['9_2_11_app']);
+    })
+</script>
+</div>
+</div>
+
+            <h3 id="9_2_13">13.ng-model</h3>
+<div class="my-test-show">
+<div class="my-content"><p>我们应该始终使用<code>ngModel</code>来绑定<code>$scope</code>上一个数据模型内的属性，
+而不是<code>$scope</code>上的属性，这样可以避免在作用域或后代作用域中发生属性覆盖</p>
+<div ng-app="9_2_13_app" class="clearfix">
+    <input type="text" class="pull-left" ng-model="modelName.someProperty" />
+    <p ng-cloak class="pull-left">{{modelName.someProperty}}</p>
+</div>
+<script>
+    angular.module('9_2_13_app', []);
+    $(function () {
+        //手动加载，当一个页面都多个ng-app时
+        angular.bootstrap($("[ng-app='9_2_13_app']")[0], ['9_2_13_app']);
+    })
+</script>
+</div>
+</div>
+
+
+            <h3 id="9_2_14">14.ng-show/ng-hide</h3>
+<div class="my-test-show">
+<div class="my-content"><div ng-app="9_2_14_app">
+    <div ng-show="true">
+        Is Show
+    </div>
+    <div ng-show="false">
+        Is Not Show
+    </div>
+    <div ng-hide="true">
+        Is Hide
+    </div>
+    <div ng-hide="false">
+        Is Not Hide
+    </div>
+</div>
+<script>
+    angular.module('9_2_14_app', []);
+    $(function () {
+        //手动加载，当一个页面都多个ng-app时
+        angular.bootstrap($("[ng-app='9_2_14_app']")[0], ['9_2_14_app']);
+    })
+</script>
+</div>
+</div>
+
+
+
+            <h3 id="9_2_15">15.ng-change</h3>
+<div class="my-test-show">
+<div class="my-content"><div ng-app="9_2_15_app">
+    <div ng-controller="EquationController1">
+        <input class="form-control" type="text" ng-model="equation.x" ng-change="change()"/>
+        <label>equation.output:</label>
+        <code>{{equation.output}}</code>
+    </div>
+</div>
+<script>
+    $(function () {
+        angular.module('9_2_15_app', [])
+        .controller('EquationController1', function ($scope) {
+            $scope.equation = {};
+            $scope.change = function () {
+                $scope.equation.output = parseInt($scope.equation.x) + 2;
+            }
+        });
+
+        //手动加载，当一个页面都多个ng-app时
+        angular.bootstrap($("[ng-app='9_2_15_app']")[0], ['9_2_15_app']);
+    });
+</script>
+</div>
+</div>
+
+            <h3 id="9_2_16">16.ng-form</h3>
+<div class="my-test-show">
+<div class="my-content"><div ng-app="9_2_16_app">
+    <form name="signup_form" ng-controller="FormController" ng-submit="submitForm()" novalidate>
+        <div ng-repeat="field in fields" ng-form="signup_form_input">
+            <div class="form-group">
+                <input type="text" class="form-control" name="dynamic_input" 
+                       ng-required="field.isRequired" ng-model="field.name" 
+                       placeholder="{{field.placeholder}}" />
+                <div ng-show="sign_form_input.dynamic_input.$dirty">
+                    <!--&& signup_form_input.dynamic_input.$invalid-->
+                    <!--<span class="text-danger" ng-show="sign_form_input.dynamic_input.$error.required">
+            The field is required!
+        </span>-->
+                    23423
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" ng-disabled="signup_form.$invalid">Submit All</button>
+                            
+    </form>
+</div>
+<style type="text/css">
+    input.ng-invalid{border:1px solid red;background-color:#DD6D22;}
+    input.ng-valid{border:1px solid green;background-color:#2BD56F;}
+</style>
+<script>
+    $(function () {
+        angular.module('9_2_16_app', [])
+        .controller('FormController', function ($scope) {
+            $scope.fields = [
+                { placeholder: 'Username', isRequired: true },
+                { placeholder: 'Password', isRequired: true },
+                { placeholder: 'Email(optional)', isRequired: false }
+            ];
+            $scope.submitForm = function () {
+                alert("It works!");
+            };
+        });
+
+        //手动加载，当一个页面都多个ng-app时
+        angular.bootstrap($("[ng-app='9_2_16_app']")[0], ['9_2_16_app']);
+    });
+</script>
+</div>
+</div>
+
+
+            <h3 id="9_2_17">17.ng-click</h3>
+<div class="my-test-show">
+<div class="my-content"><div ng-app="9_2_17_app">
+    <div ng-controller="CounterController">
+        <button ng-click="count=count+1" ng-init="count=0" class="btn btn-primary btn-block">
+            Increment
+        </button>
+        <label class="">Count:{{count}}</label>
+        <button ng-click="decrement()" class="btn btn-danger btn-block">Decrement</button>
+    </div>
+</div>
+<script>
+    $(function () {
+        angular.module('9_2_17_app', [])
+        .controller('CounterController', function ($scope) {
+            $scope.decrement = function () {
+                $scope.count = $scope.count - 1;
+            };
+        });
+
+        //手动加载，当一个页面都多个ng-app时
+        angular.bootstrap($("[ng-app='9_2_17_app']")[0], ['9_2_17_app']);
+    });
+</script>
+</div>
+</div>
+
+
+            <h3 id="9_2_18">18.ng-select</h3>
+<div class="my-test-show">
+<div class="my-content"><div ng-app="9_2_18_app">
+    <div ng-controller="CityController">
+        <select ng-model="city" ng-options="city.name for city in cities">
+            <option value="">Choose City</option>
+        </select>
+        <p class="bg-success">
+            Best City:{{city.name}} {{city.id}}
+        </p>
+
+    </div>
+</div>
+<script>
+    $(function () {
+        angular.module('9_2_18_app', [])
+        .controller('CityController', function ($scope) {
+            $scope.cities = [
+                { name: 'Seattle',id:'001' },
+                { name: 'San Francisco', id: '001' },
+                { name: 'Chicago', id: '002' },
+                { name: 'New York', id: '003' },
+                { name: 'Boston', id: '004' }
+            ];
+        });
+
+        //手动加载，当一个页面都多个ng-app时
+        angular.bootstrap($("[ng-app='9_2_18_app']")[0], ['9_2_18_app']);
+    });
+</script>
+
+</div>
+</div>
+
+            <h3 id="9_2_19">19.ng-submit</h3>
+<div class="my-test-show">
+<div class="my-content"><div ng-app="9_2_19_app">
+    <label>ng-submit用来将表达式同onsubmit事件进行绑定。这个指令同时会阻止默认行为（发起请求并重新加载页面），但前提是表单不含有action属性</label>
+    <form ng-submit="submit()" ng-controller="FormController">
+        <input type="text" class="form-control" ng-model="person.name" name="person.name"/>
+
+        <input type="submit" name="person.name" value="Submit" class="btn btn-primary"/>
+        <code>people={{people}}</code>
+        <ul ng-repeat="(index,object) in people">
+            <li>{{object.name}}</li>
+        </ul>
+        <p>==================================================================</p>
+        <ul>
+            <li ng-repeat="person in people">
+                {{person.name}}
+            </li>
+        </ul>
+    </form>
+</div>
+<script>
+    $(function () {
+        angular.module('9_2_19_app', [])
+        .controller('FormController', function ($scope) {
+            $scope.person = { name: null };
+            $scope.people = [];
+            $scope.submit = function () {
+                if($scope.person.name)
+                {
+                    $scope.people.push({ name: $scope.person.name });
+                    $scope.person.name="";
+                }
+            };
+        });
+
+        //手动加载，当一个页面都多个ng-app时
+        angular.bootstrap($("[ng-app='9_2_19_app']")[0], ['9_2_19_app']);
+    });
+</script>
+</div>
+</div>
+
+            <h3 id="9_2_20">20.ng-class</h3>
+<div class="my-test-show">
+<div class="my-content"><div ng-app="9_2_20_app">
+    <div ng-controller="LotterController">
+        <div ng-class="{red:x>5}">
+            You Win!!
+        </div>
+        <button ng-click="x=generateNumber()" ng-init="x=0">Draw Number</button>
+        <p>Number is: {{x}}</p>
+    </div>
+</div>
+<style type="text/css">
+    .red {
+        color: red;
+        font-weight:bold;
+    }
+</style>
+<script>
+    $(function () {
+        angular.module('9_2_20_app', [])
+        .controller('LotterController', function ($scope) {
+            $scope.generateNumber = function () {
+                return Math.floor((Math.random() * 10) + 1);
+            };
+        });
+
+        //手动加载，当一个页面都多个ng-app时
+        angular.bootstrap($("[ng-app='9_2_20_app']")[0], ['9_2_20_app']);
+    });
+</script>
+</div>
+</div>
+
+            <h3 id="9_2_21">21.ng-attr-(suffix)</h3>
+<div class="my-test-show">
+<div class="my-content"><div ng-app="9_2_21_app">
+    <label>ng-attr-(suffix)会在标签里生成对应的suffix值。有时浏览器会对属性进行很苛刻的限制。SVG就是一个例子</label>
+    <div ng-controller="MyController">
+        <input type="text" class="form-control" ng-attr-mydata="{{mydata}}" />
+        {{mydata}}
+    </div>
+</div>
+<script>
+    $(function () {
+        angular.module('9_2_21_app', [])
+        .controller('MyController', function ($scope) {
+            $scope.mydata = 'myAttr';
+        });
+
+        //手动加载，当一个页面都多个ng-app时
+        angular.bootstrap($("[ng-app='9_2_21_app']")[0], ['9_2_21_app']);
+    });
+</script>
+</div>
+</div>
+
+
+
+
+
+
 
         </div>
         <div class="col-lg-3">
