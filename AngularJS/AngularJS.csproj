@@ -41,6 +41,7 @@
     <Content Include="8.1指令.html" />
     <Content Include="8.1 directive.js" />
     <Content Include="9内置指令.html" />
+    <Content Include="angularIndex.html" />
     <Content Include="CodeDisplay\CodeDisplay.css" />
     <Content Include="CodeDisplay\CodeDisplay.js" />
     <Content Include="HtmlPage1.html" />
@@ -536,7 +537,6 @@
     <Content Include="Resource\js\bootstrap-3.3.5\dist\js\npm.js" />
     <Content Include="Resource\js\Common\myScrollNav.js" />
     <Content Include="Resource\js\jquery-2.1.1.min.js" />
-    <Content Include="9内置指令.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

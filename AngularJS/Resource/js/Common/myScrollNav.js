@@ -66,6 +66,11 @@
             $(opts.scrollBody).animate({ scrollTop: 0}, 500, undefined, function () { canScrollNav = true; });
         });
         ulJq.append(retTop);
+
+        if (opts.footHtml)
+        {
+            ulJq.append(opts.footHtml);
+        }
         navJq.append(ulJq);
         
         //绑定 导航点击时，出现子导航
@@ -112,7 +117,8 @@
         scrollBody: 'body',//导航条 捕捉范围
         navObj: '#right-nav',//导航条生成位置
         title1: "h1",//一级导航条
-        title2: "h2"//二级导航条
+        title2: "h2",//二级导航条
+        footHtml:""
     };
 
     $.fn.myJquery.css = " \
