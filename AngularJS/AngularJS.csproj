@@ -38,6 +38,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="10指令详解.html" />
+    <Content Include="12多重视图和路由.html" />
     <Content Include="8.1指令.html" />
     <Content Include="8.1 directive.js" />
     <Content Include="9内置指令.html" />
@@ -537,6 +539,21 @@
     <Content Include="Resource\js\bootstrap-3.3.5\dist\js\npm.js" />
     <Content Include="Resource\js\Common\myScrollNav.js" />
     <Content Include="Resource\js\jquery-2.1.1.min.js" />
+    <Content Include="Resource\js\chili\cplusplus.js" />
+    <Content Include="Resource\js\chili\csharp.js" />
+    <Content Include="Resource\js\chili\css.js" />
+    <Content Include="Resource\js\chili\delphi.js" />
+    <Content Include="Resource\js\chili\html.js" />
+    <Content Include="Resource\js\chili\java.js" />
+    <Content Include="Resource\js\chili\jquery.chili-2.2.js" />
+    <Content Include="Resource\js\chili\js.js" />
+    <Content Include="Resource\js\chili\lotusscript.js" />
+    <Content Include="Resource\js\chili\mysql.js" />
+    <Content Include="Resource\js\chili\php-f.js" />
+    <Content Include="Resource\js\chili\php.js" />
+    <Content Include="Resource\js\chili\recipes.js" />
+    <Content Include="Resource\media\死机之歌.mp3" />
+    <Content Include="tempTest.html" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

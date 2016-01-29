@@ -9,6 +9,12 @@ function createHtmlCodeAll()
         var showJq = $(item).parent();
         var itemHtml = $(item).html();
 
+        if (item.is(".no-code"))
+        {
+            item.css({ 'border-radius': '4px 4px 4px 4px', 'border-bottom': '1px solid #ccc' });
+            return true;
+        }
+
         //pre 显示代码窗口
         var codeJq = $("<div class='my-code'></div>");
         var preJq = $("<pre></pre>").text(itemHtml);

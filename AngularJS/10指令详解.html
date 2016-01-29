@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="shortcut icon" href="Resource/image/favicon.ico">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <script src="resource/js/jquery-2.1.1.min.js"></script>
+
+    <script>
+        $(function () {
+            createHtmlCodeAll();//在 其他js框架还未加载时，就执行
+        });
+
+    </script>
+
+    <script src="resource/js/angular-1.3.0-beta.14/angular.min.js"></script>
+
+    <link href="resource/js/bootstrap-3.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="resource/js/bootstrap-3.3.5/dist/js/bootstrap.min.js" defer></script>
+
+    <link href="codedisplay/codedisplay.css" rel="stylesheet" />
+    <script src="codedisplay/codedisplay.js"></script>
+
+    <script src="resource/js/common/myscrollnav.js"></script>
+    <script>
+
+        $(function () {
+            $("#ContentDiv").myJquery({
+                title1: "h2",//一级导航条
+                title2: "h3",//二级导航条
+                footHtml: '<li><a href="angularIndex.html">返回目录</a></li>'
+            });
+
+
+        })
+    </script>
+</head>
+<body>
+    <div class="container" id="ContentDiv">
+        <div class="col-lg-9">
+            <h2 id="10_1">10.1 指令定义</h2>
+            <h3 id="10_1_1">10.1.1 restrict(字符串)</h3>
+            <div class="my-test-show">
+<div class="my-content"><div ng-app="10_1_1_app">
+    <p>restrict是一个可选参数。它告诉AngularJS这个指令在DOM中可以何种形式被声明。默认AngularJS认为restrict的值是A，即以属性的形式来进行声明。（EACM）</p>
+    E(元素)<br /><my-directive ></my-directive> <br /><br />
+    A(属性，默认值)<div my-directive="expression"></div><br />
+    C(类型)<div class="my-directive"></div><br />
+    M(注释)<!-- directive:my-directive ee--><br />
+</div>
+<script>
+    angular.module('10_1_1_app', [])
+    .directive('myDirective', function () {
+        return {
+            restrict: 'EACM',
+            template: '<code>templateCode</code>'
+        };
+    });
+    $(function () {
+
+        //手动加载，当一个页面都多个ng-app时
+        //  angular.bootstrap($("[ng-app='10_1_1_app']")[0], ['10_1_1_app']);
+    });
+</script>
+</div>
+            </div>
+
+
+            <h3 id="10_1_2">10.1.2 优先级(数值型)</h3>
+            <div class="my-test-show">
+                <div class="my-content no-code">
+                    <p>默认为0，数值越大优先级越高，越先被执行。同优先级先申明先执行，ngRepeat优先级最高</p>
+                    <kbd>priority:Number</kbd>
+                </div>
+            </div>
+
+
+            <h3 id="10_1_3">10.1.3 terminal(布尔型)</h3>
+            <div class="my-test-show">
+                <div class="my-content no-code">
+                   <p>停止运行当前元素上比本指令优先级低的指令，但优先级相同的指令还是会被执行</p>
+                    <p>比如ngView和ngIf，如果ngIf表达式的值为false，由于ngView的优先级较低就不会被执行</p>
+                </div>
+            </div>
+
+            <h3 id="10_1_4">10.1.4 template(字符串或函数)</h3>
+            <div class="my-test-show">
+                <div class="my-content no-code">
+                    <p>生成指定的html文本</p>
+                </div>
+            </div>
+
+
+            <h3 id="10_1_5">10.1.5 templateUrl(字符串或函数)</h3>
+            <div class="my-test-show">
+                <div class="my-content no-code">
+                    <p>代表外部HTML文件路径的字符串，类似于Jquery的$.load('htmlSrc')</p>
+                </div>
+            </div>
+
+            <h3 id="10_1_6">10.1.6 replace(布尔型)</h3>
+            <div class="my-test-show">
+                <div class="my-content no-code">
+                    <p>replace是一个可选参数，如果设置了这个参数，值必须为true，因为默认值为false。为true时，模板内容会替换标签元素。类型与asp的litral控件</p>
+                </div>
+            </div>
+
+            <h2 id="10_2">10.2 指令作用域</h2>
+
+            <h3 id="10_2_1">10.2.1 scope参数(布尔型或对象)</h3>
+
+            <div class="my-test-show">
+                <div class="my-content">
+                    <div ng-app="9_2_21_app">
+
+                    </div>
+                    <script>
+                        $(function () {
+                            angular.module('9_2_21_app', [])
+
+
+                            //手动加载，当一个页面都多个ng-app时
+                            angular.bootstrap($("[ng-app='9_2_21_app']")[0], ['9_2_21_app']);
+                        });
+                    </script>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-3">
+            <div id="right-nav" style="height:100%;overflow-y:overlay;"></div>
+        </div>
+    </div>
+</body>
+</html>
