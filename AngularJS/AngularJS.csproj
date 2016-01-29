@@ -553,6 +553,7 @@
     <Content Include="Resource\js\chili\php.js" />
     <Content Include="Resource\js\chili\recipes.js" />
     <Content Include="Resource\media\死机之歌.mp3" />
+    <Content Include="chiliTest.html" />
     <Content Include="tempTest.html" />
   </ItemGroup>
   <ItemGroup>
