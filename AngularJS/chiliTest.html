@@ -2,8 +2,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
-    <script src="resource/js/jquery-2.1.1.min.js"></script>
+    <script src="Resource/js/jquery-2.1.1.min.js"></script>
     <script src="Resource/js/chili/jquery.chili-2.2.js"></script>
+    <script src="Resource/js/chili/html.js"></script>
+    <!--<script src="Resource/js/chili/html.js"></script>-->
+    <script>
+        var str = 'abcdsdwqeqwssddfsdfvncv';
+        str.replace(/sd/, function () {
+            var qwwe = 1;
+        });
+
+
+
+
+        $.htmlEncode = function (value) {
+            return $("<div/>").text(value).html();
+        }
+        $.htmlDecode = function (value) {
+            return $("<div/>").html(value).text();
+        }
+      
+        $(function () {
+            debugger;
+            $(".html").text($(".html").html());
+
+            $(".html").chili(
+                {recipeFolder:'Resource/js/chili/'}
+            );
+         
+        });
+
+    </script>
 </head>
 <body>
     <div>
@@ -22,5 +51,62 @@
             console.log(a);
         }
     </script>
+
+    <div class="html">
+        <div ma-asdsa class="asdasd" id="asdaszxcxc">
+            <ul>
+                <li>First link</li>
+                <li>Second link</li>
+            </ul>
+        </div>
+
+        <script>
+            function f() {
+                var a = 'ad';
+                var b = 1;
+                var c = b + 2;
+                console.log(a);
+            }
+        </script>
+
+    </div>
+    <p>12312312312312312312312312</p>
+    <div class="html" >
+        <div ma-asdsa class="asdasd" id="asdaszxcxc">
+            <ul>
+                <li>First link</li>
+                <li>Second link</li>
+            </ul>
+        </div>
+
+        <script>
+            function f() {
+                var a = 'ad';
+                var b = 1;
+                var c = b + 2;
+                console.log(a);
+            }
+        </script>
+
+    </div>
+    <p>12312312312312312312312312</p>
+    <div class="html">
+        <div ma-asdsa class="asdasd" id="asdaszxcxc">
+            <ul>
+                <li>First link</li>
+                <li>Second link</li>
+            </ul>
+        </div>
+
+        <script>
+            function f() {
+                var a = 'ad';
+                var b = 1;
+                var c = b + 2;
+                console.log(a);
+            }
+        </script>
+
+    </div>
 </body>
 </html>

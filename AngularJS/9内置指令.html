@@ -8,9 +8,15 @@
     <title></title>
     <script src="resource/js/jquery-2.1.1.min.js"></script>
     <script src="Resource/js/chili/jquery.chili-2.2.js"></script>
+    <script src="Resource/js/chili/html.js"></script>
+    <script src="Resource/js/chili/js.js"></script>
     <script>
         $(function () {
             createHtmlCodeAll();//在 其他js框架还未加载时，就执行
+
+            $("pre.html,pre.js").chili(
+                { recipeFolder: 'Resource/js/chili/' }
+            );
         });
        
     </script>
@@ -20,7 +26,7 @@
 
 
     <script src="resource/js/angular-1.3.0-beta.14/angular.min.js"></script>
-    <script src="9内置指令.js"></script>
+
 
     <link href="resource/js/bootstrap-3.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="resource/js/bootstrap-3.3.5/dist/js/bootstrap.min.js" defer></script>

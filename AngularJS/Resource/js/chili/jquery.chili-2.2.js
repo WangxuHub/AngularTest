@@ -1,4 +1,4 @@
-/*
+﻿/*
 ===============================================================================
 Chili is the jQuery code highlighter plugin
 ...............................................................................
@@ -59,7 +59,6 @@ ChiliBook = { //implied global
 
 $.fn.chili = function( options ) {
 	var book = $.extend( {}, ChiliBook, options || {} );
-
 	function cook( ingredients, recipe, blockName ) {
 
 		function prepareBlock( recipe, blockName ) {
@@ -397,39 +396,57 @@ $.fn.chili = function( options ) {
 	} // checkSpices
 
 	function askDish( el ) {
-		var recipeName = book.codeLanguage( el );
-		if( '' != recipeName ) {
-			var path = getPath( recipeName );
-			if( book.recipeLoading ) {
-				/* dynamic setups come here */
-				if( ! book.queue[ path ] ) {
-					/* this is a new recipe to download */
-					try {
-						book.queue[ path ] = [ el ];
-						$.getJSON( path, function( recipeLoaded ) {
-							book.recipes[ path ] = recipeLoaded;
-							var q = book.queue[ path ];
-							for( var i = 0, iTop = q.length; i < iTop; i++ ) {
-								makeDish( q[ i ], path );
-							}
-						} );
-					}
-					catch( recipeNotAvailable ) {
-						alert( "the recipe for '" + recipeName + "' was not found in '" + path + "'" );
-					}
-				}
-				else {
-					/* not a new recipe, so just enqueue this element */
-					book.queue[ path ].push( el );
-				}
-				/* a recipe could have been already downloaded */
-				makeDish( el, path ); 
-			}
-			else {
-				/* static setups come here */
-				makeDish( el, path );
-			}
-		}
+	    var recipeName = book.codeLanguage(el);//根据class 获取代码属于那种类型，如JavaScript、html、c#
+	    if (!recipeName)
+	        return;
+
+	    var path = getPath(recipeName); //获得代码高亮的文件 路径
+	    if (book.recipeLoading) {
+	        /* dynamic setups come here */
+	        if (!book.queue[path]) {
+	            /* this is a new recipe to download */
+	            try {
+	                book.queue[path] = [el];
+	                //$.getJSON( path, function( recipeLoaded ) {
+	                //	book.recipes[ path ] = recipeLoaded;
+	                //	var q = book.queue[ path ];
+	                //	for( var i = 0, iTop = q.length; i < iTop; i++ ) {
+	                //		makeDish( q[ i ], path );
+	                //	}
+	                //} );
+
+	                //异步json请求改为 异步script请求 2016-1-29 陈双宇
+	                //$.getScript(path, function () {
+	                //    book.recipes[path] = $.fn.chili[recipeName + 'Code'];
+
+	                //    var q = book.queue[path];
+	                //    for (var i = 0, iTop = q.length; i < iTop; i++) {
+	                //        makeDish(q[i], path);
+	                //    }
+	                //});
+
+                    //将代码直接引入到头文件
+	                book.recipes[path] = $.fn.chili[recipeName + 'Code'];
+	                var q = book.queue[path];
+	                for (var i = 0, iTop = q.length; i < iTop; i++) {
+	                    makeDish(q[i], path);
+	                }
+	            }
+	            catch (recipeNotAvailable) {
+	                alert("the recipe for '" + recipeName + "' was not found in '" + path + "'");
+	            }
+	        }
+	        else {
+	            /* not a new recipe, so just enqueue this element */
+	            book.queue[path].push(el);
+	            makeDish(el, path);
+	        }
+	        /* a recipe could have been already downloaded */
+	    }
+	    else {
+	        /* static setups come here */
+	        makeDish(el, path);
+	    }
 	} // askDish
 
 	function makeDish( el, recipePath ) {
@@ -447,12 +464,7 @@ $.fn.chili = function( options ) {
 		//fix for opera: \r\n is used instead of \n
 		ingredients = ingredients.replace(/\r\n?/g, "\n");
 
-		//reverse fix for safari: msie, mozilla and opera render the initial \n
-		if( $el.parent().is('pre') ) {
-			if( ! $.browser.safari ) {
-				ingredients = ingredients.replace(/^\n/g, "");
-			}
-		}
+		
 
 		var dish = cook( ingredients, recipe ); // all happens here
 	
@@ -467,10 +479,7 @@ $.fn.chili = function( options ) {
 		//tried also the function replaceHtml from http://blog.stevenlevithan.com/archives/faster-than-innerhtml
 		//but it was not faster nor without sideffects (it was not possible to count spans into el)
 
-		//opera and safari select PRE text correctly 
-		if( $.browser.msie || $.browser.mozilla ) {
-			enableSelectionHelper( el );
-		}
+		
 
 		var $that = $el.parent();
 		var classes = $that.attr( 'class' );
@@ -508,37 +517,25 @@ $.fn.chili = function( options ) {
 		.filter( "pre" )
 		.bind( "mousedown", function() {
 			element = this;
-			if( $.browser.msie ) {
-				document.selection.empty();
-			}
-			else {
-				window.getSelection().removeAllRanges();
-			}
+			
+			window.getSelection().removeAllRanges();
 		} )
 		.bind( "mouseup", function( event ) {
 			if( element && (element == this) ) {
 				element = null;
 				var selected = '';
-				if( $.browser.msie ) {
-					selected = document.selection.createRange().htmlText;
-					if( '' == selected ) { 
-						return;
-					}
-					selected = preserveNewLines( selected );
-					var container_tag = '<textarea style="STYLE">';
+				
+				selected = window.getSelection().toString(); //opera doesn't select new lines
+				if( '' == selected ) {
+					return;
 				}
-				else {
-					selected = window.getSelection().toString(); //opera doesn't select new lines
-					if( '' == selected ) {
-						return;
-					}
-					selected = selected
-						.replace( /\r/g, '' )
-						.replace( /^# ?/g, '' )
-						.replace( /\n# ?/g, '\n' )
-					;
-					var container_tag = '<pre style="STYLE">';
-				}
+				selected = selected
+					.replace( /\r/g, '' )
+					.replace( /^# ?/g, '' )
+					.replace( /\n# ?/g, '\n' )
+				;
+				var container_tag = '<pre style="STYLE">';
+				
 				var $container = $( container_tag.replace( /\bSTYLE\b/, ChiliBook.selectionStyle ) )
 					.appendTo( 'body' )
 					.text( selected )
@@ -548,18 +545,12 @@ $.fn.chili = function( options ) {
 				var top  = event.pageY - Math.round( $container.height() / 2 ) + "px";
 				var left = event.pageX - Math.round( $container.width() / 2 ) + "px";
 				$container.css( { top: top, left: left } );
-				if( $.browser.msie ) {
-//					window.clipboardData.setData( 'Text', selected ); //I couldn't find anything similar for Mozilla
-					$container[0].focus();
-					$container[0].select();
-				}
-				else {
-					var s = window.getSelection();
-					s.removeAllRanges();
-					var r = document.createRange();
-					r.selectNodeContents( $container[0] );
-					s.addRange( r );
-				}
+				
+				var s = window.getSelection();
+				s.removeAllRanges();
+				var r = document.createRange();
+				r.selectNodeContents( $container[0] );
+				s.addRange( r );
 			}
 		} )
 		;
@@ -571,12 +562,8 @@ $.fn.chili = function( options ) {
 
 	function getSelectedText() {
 		var text = '';
-		if( $.browser.msie ) {
-			text = document.selection.createRange().htmlText;
-		}
-		else {
-			text = window.getSelection().toString();
-		}
+		
+		text = window.getSelection().toString();
 		return text;
 	} // getSelectedText
 
@@ -679,7 +666,7 @@ $.fn.chili = function( options ) {
 //-----------------------------------------------------------------------------
 // the coloring starts here
 	this
-	.each( function() {
+	.each(function () {
 		var $this = $( this );
 		$this.trigger( 'chili.before_coloring' );
 		askDish( this );

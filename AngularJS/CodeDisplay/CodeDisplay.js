@@ -1,5 +1,10 @@
 ﻿///<reference path='../9内置指令.html'/>
-
+$.htmlEncode = function (value) {
+    return $("<div/>").text(value).html();
+}
+$.htmlDecode = function (value) {
+    return $("<div/>").html(value).text();
+}
 
 function createHtmlCodeAll()
 {
@@ -17,8 +22,15 @@ function createHtmlCodeAll()
 
         //pre 显示代码窗口
         var codeJq = $("<div class='my-code'></div>");
-        var preJq = $("<pre></pre>").text(itemHtml);
-        codeJq.append(preJq);
+
+        var htmlCode = $(item).children().not('script')[0]?$(item).children().not('script')[0].outerHTML:"";
+        var jsCode = $(item).find("script")[0]?$(item).find("script")[0].outerHTML:"";
+
+        var $html = $("<pre class='html'></pre>").text(htmlCode);
+        var $Jq = $("<pre class='js'></pre>").text(jsCode);
+
+        codeJq.append($html);
+        codeJq.append($Jq);
 
         //“复制代码”按钮,显示提示
         var clipboardJq = $(

@@ -14,6 +14,19 @@
     min-height:40px;
 }
 
+pre.html,pre.js{
+    border:none;
+}
+
+.my-code {
+        border: 1px solid #ccc;
+        min-height: 40px;   
+         border-radius: 0px 0px 4px 4px;
+}
+.my-code pre{
+    margin-bottom:0px;
+}
+
 .my-code .tooltip{
     white-space:nowrap;
 }

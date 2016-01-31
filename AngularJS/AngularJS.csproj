@@ -537,6 +537,8 @@
     <Content Include="Resource\js\bootstrap-3.3.5\dist\js\bootstrap.js" />
     <Content Include="Resource\js\bootstrap-3.3.5\dist\js\bootstrap.min.js" />
     <Content Include="Resource\js\bootstrap-3.3.5\dist\js\npm.js" />
+    <Content Include="Resource\js\chili\html_backup.js" />
+    <Content Include="Resource\js\chili\jquery.chili-2.2.js" />
     <Content Include="Resource\js\Common\myScrollNav.js" />
     <Content Include="Resource\js\jquery-2.1.1.min.js" />
     <Content Include="Resource\js\chili\cplusplus.js" />
@@ -545,7 +547,6 @@
     <Content Include="Resource\js\chili\delphi.js" />
     <Content Include="Resource\js\chili\html.js" />
     <Content Include="Resource\js\chili\java.js" />
-    <Content Include="Resource\js\chili\jquery.chili-2.2.js" />
     <Content Include="Resource\js\chili\js.js" />
     <Content Include="Resource\js\chili\lotusscript.js" />
     <Content Include="Resource\js\chili\mysql.js" />
