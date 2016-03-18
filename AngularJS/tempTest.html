@@ -7,35 +7,46 @@
     <script src="Resource/js/chili/jquery.chili-2.2.js"></script>
 </head>
 <body ng-app="myApp">
-    <div sidebox title="Links">
-        <ul>
-            <li>First link</li>
-            <li>Second link</li>
-        </ul>
+    <div ng-controller="MyController">
+        <button ng-click="sayHello()">Hello</button>
+
     </div>
-
     <script>
-    angular.module('myApp', [])
-    .directive('sidebox', function () {
-        return {
-            restrict:"EA",
-            scope: {
-                title: '@'
+        //$.fn.myTest = function (data) {
+        //    this.f1=function() {
+        //        alert(data.f1);
+        //    }
+        //    this.f2=function() {
+        //        alert(data.f2);
+        //    }
+        //    return this;
+        //};
 
-            },
-            transclude: true,
-            template:'\
-                <div class="sidebox">\
-                    <div class="content">\
-                        <h2 class="header">{{title}}</h2>\
-                        <span class="content" ng-transclude></span>\
-                    </div>\
-                </div>\
-            '
+        //var a1=$("#assd").myTest({ f1: 11, f2: 22 });
+        
+        //a1.f1();
+        //a1.f2();
+        //var a2 = $("qweq").myTest({ f1: 1111, f2: 'asdasd' });
+        //a2.f1();
+        //a2.f2();
 
-        };
-    });
+
+        angular.module('myApp', [])
+        .factory('greeter', function () {
+            return {
+                greet: function (msg) { alert(msg);}
+            }
+        })
+        .controller('MyController',
+            function ($scope, greeter) {
+                $scope.sayHello = function () {
+                    greeter.greet("Hello!");
+                };
+            });
 
     </script>
+
+
+    
 </body>
 </html>
